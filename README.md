@@ -1,24 +1,99 @@
 # README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                      | Type   | Options     |
+| --------------------------- | ------ | ----------- |
+| name                        | string | null: false |
+| email                       | string | null: false |
+| password                    | string | null: false |
+| password_confirmation       | string | null: false |
+| first_name, Last_name       | text   | null: false |
+| first_name, Last_name(kana) | text   | null: false |
+| birthday                    | string | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :comments
+- has_many :items
 
-* Configuration
+## comments テーブル
 
-* Database creation
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| text    | text       | null: false                    |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
-* Database initialization
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :item
+- belongs_to :user
 
-* Deployment instructions
+## items テーブル
 
-* ...
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| image               | references |                                |
+| title               | text       | null: false                    |
+| text                | text       | null: false                    |
+| Genre               |            | null: false                    |
+| quantity            |            | null: false                    |
+| delivery_payments   | string     | null: false                    |
+| delivery_prefecture |            | null: false                    |
+| delivery_times      |            | null: false                    |
+| delivery_amount     |            | null: false                    |
+
+### Association
+
+- has_many   :comments
+- belongs_to :user
+
+## categorys テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| name    |            | null: false                    |
+| item_id | references | null: false, foreign_key: true |
+
+### Association
+
+- has_many   :item
+- belongs_to :item_categorys
+
+## item_categorys テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| item_id       | references | null: false, foreign_key: true |
+| category_id   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :item
+- belongs_to :categorys
+
+## brands テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| name    |            | null: false                    |
+
+### Association
+
+- has_many   :item_brands
+- has_many   :item
+
+## item_brands テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| item_id       | references | null: false, foreign_key: true |
+| brand_id      | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :item
+- belongs_to :categorys
