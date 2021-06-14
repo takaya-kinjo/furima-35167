@@ -32,7 +32,7 @@
 | delivery_payment_id    | integer    | null: false                    |
 | delivery_prefecture_id | integer    | null: false                    | 
 | delivery_time_id       | integer    | null: false                    |
-| delivery_amount        | integer    | null: false                    |
+| price                  | integer    | null: false                    |
 
 ### Association
 
@@ -62,9 +62,9 @@
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    | 
-| building      | integer    |                                |
+| building      | string     |                                |
 | phone_number  | string     | null: false                    |
 
 ### Association
 
-- has_one    :order
+- belongs_to  :order
