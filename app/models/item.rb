@@ -12,14 +12,12 @@ class Item < ApplicationRecord
     validates :titele
     validates :comment
     validates :preice
-
-    with_options numericality: {other_than 1} do
-      validates :category_id
-      validates :quantity_id
-      validates :delivery_payment_id
-      validates :delivery_prefecture_id
-      validates :delivery_time_id
-    end
-
+  end
+  with_options numericality: {other_than: 1} do
+    validates :category_id
+    validates :quantity_id
+    validates :delivery_payment_id
+    validates :delivery_prefecture_id
+    validates :delivery_time_id
   end
 end
