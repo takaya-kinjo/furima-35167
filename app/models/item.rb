@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :delivery_payment
   belongs_to :delivery_prefecture
   belongs_to :delivery_time
+  has_one_attached :image
 
   with_options presence: true do
     validates :titele
