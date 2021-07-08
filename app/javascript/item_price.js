@@ -12,7 +12,6 @@ window.addEventListener('load', () => {
       const true_value = inputValue * 0.1 
       profitPrice.innerHTML = (Math.floor( inputValue - true_value ));
       
-
    
 })
 });
