@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only:[:new, :create, :edit]
+  before_action :authenticate_user!, only:[:new, :create, :edit, :update]
   before_action :set_item, only:[:show, :edit, :update]
+  before_action :user_set, only:[:edit, :update]
 
   def new
     @item = Item.new
@@ -23,9 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless @item.user_id == current_user.id
-      redirect_to root_path
-    end
   end
 
   def update
@@ -36,12 +34,20 @@ class ItemsController < ApplicationController
     end
   end
 
-  def set_item
-    @item = Item.find(params[:id])
-  end
-
     private
     def item_params
       params.require(:item).permit(:title, :comment, :category_id, :quantity_id, :delivery_payment_id, :delivery_prefecture_id, :delivery_time_id, :price, :image).merge(user_id: current_user.id)
     end
+
+    def set_item
+      @item = Item.find(params[:id])
+    end
+
+    def user_set
+      unless @item.user_id == current_user.id
+        redirect_to root_path
+      end
+    end
+
+
 end
