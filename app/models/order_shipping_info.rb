@@ -1,6 +1,6 @@
 class OrderShippingInfo
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :delivery_prefecture_id, :city, :address, :phone_number, :building
+  attr_accessor :user_id, :item_id, :postal_code, :delivery_prefecture_id, :city, :address, :phone_number, :building, :token
 
   with_options presence: true do
     validates :user_id
@@ -10,10 +10,11 @@ class OrderShippingInfo
     validates :city
     validates :address
     validates :phone_number, format: {with: /\A[0-9]{11}\z/}
+    validates :token
   end
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    Shipping_info.create(postal_code: postal_code, delivery_prefecture_id: delivery_prefecture_id, city: city, address: address, phone_number: phone_number, building: building)
+    ShippingInfo.create(order_id: order.id, postal_code: postal_code, delivery_prefecture_id: delivery_prefecture_id, city: city, address: address, phone_number: phone_number, building: building)
   end
 end
