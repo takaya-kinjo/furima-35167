@@ -22,10 +22,10 @@ const pay = () => {
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
 
-      document.getElementById("order_shipping_info_number").removeAttribute("name");
-      document.getElementById("order_shipping_info_cvc").removeAttribute("name");
-      document.getElementById("order_shipping_info_exp_month").removeAttribute("name");
-      document.getElementById("order_shipping_info_exp_year").removeAttribute("name");
+      document.getElementById("card-number").removeAttribute("name");
+      document.getElementById("card-cvc").removeAttribute("name");
+      document.getElementById("card-exp-month").removeAttribute("name");
+      document.getElementById("card-exp-year").removeAttribute("name");
 
       document.getElementById("charge-form").submit();
     });
