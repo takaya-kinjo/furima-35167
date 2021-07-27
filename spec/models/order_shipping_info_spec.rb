@@ -51,13 +51,18 @@ RSpec.describe OrderShippingInfo, type: :model do
         @order_shipping_info.valid?
         expect(@order_shipping_info.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが11桁以上だと保存できないこと' do
+      it 'phone_numberが12桁以上だと保存できないこと' do
         @order_shipping_info.phone_number = '123456789101'
         @order_shipping_info.valid?
         expect(@order_shipping_info.errors.full_messages).to include("Phone number is invalid")
       end
-      it 'phone_numberが11桁以以下だと保存できないこと' do
+      it 'phone_numberが10桁以以下だと保存できないこと' do
         @order_shipping_info.phone_number = '1234567891'
+        @order_shipping_info.valid?
+        expect(@order_shipping_info.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'phone_numberが数字意外だと保存できないこと' do
+        @order_shipping_info.phone_number = '123-567-890'
         @order_shipping_info.valid?
         expect(@order_shipping_info.errors.full_messages).to include("Phone number is invalid")
       end
