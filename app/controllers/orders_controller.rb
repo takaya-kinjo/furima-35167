@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, expect: :index
+  before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
   before_action :set_order, only:[:index]
-  before_action :order_present, only:[:index]
 
   def index
     @order_shipping_info = OrderShippingInfo.new
@@ -31,13 +30,7 @@ class OrdersController < ApplicationController
 
 
   def set_order
-    if current_user.id == @item.user_id 
-      redirect_to root_path
-    end
-  end
-
-  def order_present
-    if @item.order.present?
+    if current_user.id == @item.user_id || @item.order.present?
       redirect_to root_path
     end
   end
