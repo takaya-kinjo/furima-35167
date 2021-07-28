@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
     end
 
     def user_set
-      unless @item.user_id == current_user.id
+      if @item.order.present? || @item.user_id =! current_user.id
         redirect_to root_path
       end
     end
