@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     end
   end
 
-    private
+  private
     def item_params
       params.require(:item).permit(:title, :comment, :category_id, :quantity_id, :delivery_payment_id, :delivery_prefecture_id, :delivery_time_id, :price, :image).merge(user_id: current_user.id)
     end
@@ -52,10 +52,8 @@ class ItemsController < ApplicationController
     end
 
     def user_set
-      if @item.order.present? || @item.user_id =! current_user.id
-        redirect_to root_path
-      end
+    # binding.pry
+     return redirect_to root_path if @item.order.present? || current_user.id !=  @item.user_id
+    
     end
-
-
 end
